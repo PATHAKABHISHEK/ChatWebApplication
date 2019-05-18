@@ -1,10 +1,31 @@
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.models import User
 from django import forms
-from .models import User
 
 
-class RegistrationForm(forms.Form):
-    first_name = forms.CharField(max_length=100)
-    last_name  = forms.CharField(max_length=100)
-    user_name  = forms.CharField(max_length=100)
-    email_id   = forms.CharField(max_length=100)
-    password   = forms.CharField(max_length=100)
+
+class RegistrationForm(UserCreationForm):
+    email = forms.EmailField(required=True)
+    firstname = forms.CharField(required=True)
+    lastname = forms.CharField(required=True)
+    class Meta:
+        model = User
+        fields = (
+            'firstname',
+            'lastname',
+            'username',
+            'email',
+            'password1',
+            'password2'
+        )
+
+    def save(self, commit=True):
+        user = super(RegistrationForm, self).save(commit=False)
+        user.firstname = self.cleaned_data['firstname']
+        user.lastname  = self.cleaned_data['lastname']
+        user.username  = self.cleaned_data['username']
+        user.email   = self.cleaned_data['email']
+
+        if commit:
+            user.save()
+            return user

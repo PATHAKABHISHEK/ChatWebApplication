@@ -4,56 +4,47 @@
     <meta charset="utf-8">
     <title>{% block head %}{% endblock %}</title>
 
-    <!-- Bootstrap Css and Javascript -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
   </head>
   <body>
-
-    <nav class="navbar navbar-expand-lg navbar-dark bg- bg-dark">
-      <a class="navbar-brand" href="/">ChatApp</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        {% if user %}
+    <nav>
+    <div class="nav-wrapper">
+      <a href="{% url 'chat:homepage' %}" class="brand-logo">ChatApp</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
         {% if user.is_authenticated %}
-        <li class="nav-item">
-          <a class="nav-link" href="/register">Register</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/login">Login</a>
-        </li>
+        <li><a href="{% url 'chat:dashboard' %}">{{user.username}}</a></li>
+        <li><a href="{% url 'chat:logout' %}">Logout</a></li>
         {% else %}
-        <li class="nav-item">
-          <a class="nav-link" href="/dashboard">{{user.user_name}}</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/logout">Logout</a>
-        </li>
-        {% endif %}
+        <li><a href="{% url 'chat:register' %}">Register</a></li>
+        <li><a href="{% url 'chat:login' %}">Login</a></li>
         {% endif %}
       </ul>
     </div>
   </nav>
   {% if messages %}
-    {% for msg in messages %}
-      <!-- Flexbox container for aligning the toasts -->
-        <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center" style="min-height: 200px;">
-
-        <!-- Then put toasts within -->
-        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-          <div class="toast-body">
-            {{msg}}
-          </div>
-        </div>
-      </div>
-    {% endfor %}
-  {% endif %}
-    {% load crispy_forms_tags %}
+       {% for msg in messages %}
+       {% if msg.tags == 'success' %}
+       <script>
+           M.toast({html: "{{msg}}", displayLength : 2000, classes : "green rounded"})
+       </script>
+       {% endif%}
+       {% if msg.tags == 'error' %}
+       <script>
+           M.toast({html: "{{msg}}", displayLength : 4000, classes : "red rounded"})
+       </script>
+       {% endif%}
+       {% if msg.tags == 'info' %}
+       <script>
+           M.toast({html: "{{msg}}", displayLength : 2000, classes : "blue rounded"})
+       </script>
+       {% endif%}
+       {% endfor %}
+   {% endif %}
   {% block content %}
   {% endblock %}
   </body>

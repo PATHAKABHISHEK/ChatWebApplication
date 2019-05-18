@@ -6,12 +6,12 @@
 
 {% block content %}
 <div class="container">
-  <h2 class="text-center">Create a New Account</h2><br>
-  <form method="post">
+  <h2 class ="center">Create a New Account</h2><br>
+  <form method="POST">
     <div class="container">
      {% csrf_token %}
      {{form.as_p}}
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn">Sign In</button>
     </div>
   </form><br><br>
   <p><strong>Are You already a Registered User ? <a href="login/">Login</a> Here</strong></p>

@@ -5,5 +5,41 @@
 {% endblock %}
 
 {% block content %}
+{% if user.is_authenticated %}
+<div class="center">
 <h1>Hey There</h1>
+<div style="overflow-y: scroll; height:400px; width: 300px;">
+  <h1>Hey There</h1>
+  <h1>Hey There</h1>
+  <h1>Hey There</h1>
+  <h1>Hey There</h1>
+  <h1>Hey There</h1>
+  <h1>Hey There</h1>
+  <h1>Hey There</h1>
+  <h1>Hey There</h1><h1>Hey There</h1>
+  <h1>Hey There</h1>
+  <h1>Hey There</h1>
+  <h1>Hey There</h1>
+  <h1>Hey There</h1>
+  <h1>Hey There</h1>
+  <h1>Hey There</h1><h1>Hey There</h1>
+  <h1>Hey There</h1>
+  <h1>Hey There</h1>
+  <h1>Hey There</h1>
+  <h1>Hey There</h1>
+
+  <h1>Hey There</h1>
+  <h1>Hey There</h1>
+  <h1>Hey There</h1>
+  <h1>Hey There</h1>
+  <h1>Hey There</h1>
+  <h1>Hey There</h1>
+  <h1>Hey There</h1>
+  <h1>Hey There</h1>
+  <h1>Hey There</h1>
+  </div>
+  </div>
+{% else %}
+<p>You are not authentciated, Please login or register first.</p>
+{% endif %}
 {% endblock %}
